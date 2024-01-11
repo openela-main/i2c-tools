@@ -1,0 +1,104 @@
+From fbd988b4fa3d008c5fd210a66834d1305de41f6c Mon Sep 17 00:00:00 2001
+From: Jean Delvare <jdelvare@suse.de>
+Date: Fri, 3 Aug 2018 13:54:26 +0200
+Subject: [PATCH] libi2c: Mention the correct license in source files
+
+The libi2c library is released under the LGPL, not GPL, as explained
+in the README file and documented in lib/Module.mk. Thanks to
+Aurelien Jarno for pointing out the inconsistency.
+
+A little bit of history:
+
+The code started its life two decades ago as part of the lm-sensors
+project, which was released as a whole under the GPL originally,
+including the library part (libsensors).
+
+In 2007, I decided to split the i2c tools, which are not specific
+to sensor devices, to a separate package.
+
+In 2009, as I was working on lm-sensors v3, I contacted all the
+original authors to get their approval to release the upcoming and all
+future versions of libsensors as LGPL instead, to allow wider
+adoption. The proposal was accepted by all original authors.
+
+In 2012, I decided to turn the inlined i2c_smbus_* helper functions
+into a proper library, with the intent to release it under the LGPL,
+as is the common practice for libraries. As the authors of this code
+is a subset of the authors of libsensors, I assumed their agreement
+for libsensors could be extended to libi2c as well. This is the
+reason why LGPL is mentioned in README and lib/Module.mk.
+
+Unfortunately, when working on the library code itself, I forgot to
+update the comments in the source files. Let's fix them now.
+
+Signed-off-by: Jean Delvare <jdelvare@suse.de>
+---
+ include/i2c/smbus.h | 21 ++++++---------------
+ lib/smbus.c         | 16 +++-------------
+ 2 files changed, 9 insertions(+), 28 deletions(-)
+
+diff --git a/include/i2c/smbus.h b/include/i2c/smbus.h
+index 18a5305..3003ed7 100644
+--- a/include/i2c/smbus.h
++++ b/include/i2c/smbus.h
+@@ -1,23 +1,14 @@
+ /*
+     smbus.h - SMBus level access helper functions
+ 
+-    Copyright (C) 1995-97 Simon G. Vogl
+-    Copyright (C) 1998-99 Frodo Looijaard <frodol@dds.nl>
++    Copyright (C) 1995-1997  Simon G. Vogl
++    Copyright (C) 1998-1999  Frodo Looijaard <frodol@dds.nl>
++    Copyright (C) 2012-2017  Jean Delvare <jdelvare@suse.de>
+ 
+-    This program is free software; you can redistribute it and/or modify
+-    it under the terms of the GNU General Public License as published by
+-    the Free Software Foundation; either version 2 of the License, or
++    This library is free software; you can redistribute it and/or modify
++    it under the terms of the GNU Lesser General Public License as published
++    by the Free Software Foundation; either version 2.1 of the License, or
+     (at your option) any later version.
+-
+-    This program is distributed in the hope that it will be useful,
+-    but WITHOUT ANY WARRANTY; without even the implied warranty of
+-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-    GNU General Public License for more details.
+-
+-    You should have received a copy of the GNU General Public License
+-    along with this program; if not, write to the Free Software
+-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+-    MA 02110-1301 USA.
+ */
+ 
+ #ifndef LIB_I2C_SMBUS_H
+diff --git a/lib/smbus.c b/lib/smbus.c
+index 3a2c45a..df5a5ad 100644
+--- a/lib/smbus.c
++++ b/lib/smbus.c
+@@ -5,20 +5,10 @@
+     Copyright (C) 1998-1999  Frodo Looijaard <frodol@dds.nl>
+     Copyright (C) 2012-2013  Jean Delvare <jdelvare@suse.de>
+ 
+-    This program is free software; you can redistribute it and/or modify
+-    it under the terms of the GNU General Public License as published by
+-    the Free Software Foundation; either version 2 of the License, or
++    This library is free software; you can redistribute it and/or modify
++    it under the terms of the GNU Lesser General Public License as published
++    by the Free Software Foundation; either version 2.1 of the License, or
+     (at your option) any later version.
+-
+-    This program is distributed in the hope that it will be useful,
+-    but WITHOUT ANY WARRANTY; without even the implied warranty of
+-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-    GNU General Public License for more details.
+-
+-    You should have received a copy of the GNU General Public License
+-    along with this program; if not, write to the Free Software
+-    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+-    MA 02110-1301 USA.
+ */
+ 
+ #include <errno.h>
+-- 
+2.14.4
+
